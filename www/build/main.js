@@ -57,7 +57,7 @@ var TabsPage = (function () {
     return TabsPage;
 }());
 TabsPage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="map"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="person"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\tabs\tabs.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="map"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="person"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\tabs\tabs.html"*/
     }),
     __metadata("design:paramtypes", [])
 ], TabsPage);
@@ -97,16 +97,67 @@ var AboutPage = (function () {
     AboutPage.prototype.initMap = function () {
         var _this = this;
         this.geolocation.getCurrentPosition().then(function (position) {
-            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var lin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var lang = new google.maps.LatLng(41.1624937, -8.6304765);
             var mapOptions = {
-                center: latLng,
-                zoom: 15,
+                center: lang,
+                zoom: 13,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             _this.map = new google.maps.Map(_this.mapElement.nativeElement, mapOptions);
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer({
+                suppressMarkers: true
+            });
+            directionsDisplay.setMap(_this.map);
+            var items = [{ lat: 41.1456715, lng: -8.616795 }, { lat: 41.152277, lng: -8.6114877 }, { lat: 41.174247, lng: -8.6057957 }];
+            var waypoints = [];
+            for (var i = 0; i < items.length; i++) {
+                var address = items[i];
+                waypoints.push({
+                    location: address,
+                    stopover: true
+                });
+            }
+            var originAddress = { lat: 41.1456715, lng: -8.616795 };
+            var destinationAddress = { lat: 41.174247, lng: -8.6057957 };
+            _this.createMarker(items);
+            directionsService.route({
+                origin: originAddress,
+                destination: destinationAddress,
+                waypoints: waypoints,
+                travelMode: google.maps.TravelMode['WALKING'],
+            }, function (res, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(res);
+                }
+                else {
+                    console.warn(status);
+                }
+            });
         }, function (err) {
             console.log(err);
         });
+    };
+    AboutPage.prototype.createMarker = function (items) {
+        var temp = 0;
+        var infowindow = new google.maps.InfoWindow({
+            //when I add <IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> the maps will not load
+            content: "<div style='float:left'><img src='http://i.stack.imgur.com/g672i.png'>Hello i like to fuk</div><div style='float:right; padding: 10px;'></div>"
+        });
+        for (temp = 0; temp < items.length; temp++) {
+            var marker = new google.maps.Marker({
+                position: items[temp],
+                map: this.map,
+                title: 'Porras'
+            });
+            google.maps.event.addListener(marker, 'click', (function (marker, temp) {
+                return function () {
+                    // infowindow.setContent(items[temp]);
+                    infowindow.open(this.map, marker);
+                };
+            })(marker, temp));
+        }
     };
     return AboutPage;
 }());
@@ -116,11 +167,12 @@ __decorate([
 ], AboutPage.prototype, "mapElement", void 0);
 AboutPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-about',template:/*ion-inline-start:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\about\about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <div #map id="map"></div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\about\about.html"*/
+        selector: 'page-about',template:/*ion-inline-start:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      About\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n    <div #map id="map"></div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Salazar\Documents\GitHub\PortoQuest\src\pages\about\about.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _b || Object])
 ], AboutPage);
 
+var _a, _b;
 //# sourceMappingURL=about.js.map
 
 /***/ }),
