@@ -27,6 +27,7 @@ export class AboutPage {
          this.geolocation.getCurrentPosition().then((position) => {
          
 let lin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+});
 let lang = new google.maps.LatLng(41.1624937,-8.6304765);
   		let mapOptions = {
   				center: lang,
@@ -36,12 +37,12 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
   		};
 
   		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      let directionsService = new google.maps.DirectionsService;
+/*      let directionsService = new google.maps.DirectionsService;
         let directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
     });
 
-      directionsDisplay.setMap(this.map);
+      directionsDisplay.setMap(this.map);*/
       var items = [{lat: 41.1456715, lng: -8.616795}, {lat: 41.152277, lng: -8.6114877}, {lat: 41.174247, lng: -8.6057957}];
 var waypoints = [];
 for (var i = 0; i < items.length; i++) {
@@ -52,11 +53,11 @@ for (var i = 0; i < items.length; i++) {
         });
 }
 
-var originAddress = {lat: 41.1456715, lng: -8.616795};
-var destinationAddress = {lat: 41.174247, lng: -8.6057957};
+//var originAddress = {lat: 41.1456715, lng: -8.616795};
+//var destinationAddress = {lat: 41.174247, lng: -8.6057957};
 
 this.createMarker(items);
-
+/*
       directionsService.route({
             origin: originAddress,
             destination: destinationAddress,
@@ -75,8 +76,9 @@ this.createMarker(items);
 
   }, (err) => {
       console.log(err);
-    });
+    });*/
   }
+  
 
   createMarker(items){
 
