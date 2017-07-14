@@ -1,30 +1,33 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading} from 'ionic-angular';
+import { NavController, LoadingController, Loading, AlertController} from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
+import { AuthService } from '../login/auth-service';
 
 @Component({
+  selector: 'login',
   templateUrl: 'login.html'
 })
 export class LoginPage {
 
 	loading: Loading;
-	
-  constructor(public navCtrl: NavController, private loadingCtrl: LoadingController) {
+  registerCredentials = { user: '', password: '' };
+
+  constructor(public navCtrl: NavController, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController) {
 
   }
 
    public login() {
     this.showLoading();
-   /* this.auth.login(this.registerCredentials).subscribe(allowed => {
+      this.auth.login(this.registerCredentials).subscribe(allowed => {
       if (allowed) {        
-        this.nav.setRoot('HomePage');
+        this.navCtrl.setRoot(TabsPage);
       } else {
         this.showError("Access Denied");
       }
     },
       error => {
-        this.showError(error);
+       this.showError(error);
       });
-      */
   }
 
 
@@ -34,6 +37,18 @@ export class LoginPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+  }
+ 
+    showError(text) {
+   this.loading.dismiss();
+ 
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present(prompt);
+
   }
 
 }
