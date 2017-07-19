@@ -24,13 +24,19 @@ export class AuthService {
         // At this point make a request to your backend to make a real check!
       //  let access = (credentials.password === "pass" && credentials.user === "user");
       //  this.currentUser = new User('Simon', 'saimon@devdactic.com');
-        observer.next(false);
+        observer.next(true);
         observer.complete();
         
       });
      
     }
 
+  }
+
+  public loginfacebook(){
+
+
+    
   }
 
 

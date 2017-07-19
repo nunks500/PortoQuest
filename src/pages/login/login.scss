@@ -1,16 +1,17 @@
 login {
-.login-background {
-  background-image: url('../../assets/derrick_brutel_porto.jpg');
-  background-size: auto 100%;
-  background-position: right;
-}
+
 .scroll-content {
 		align-content: center;
-		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		text-align: center;
 	}
+
+	.login-background {
+  background: url('../assets/derrick_brutel_porto.jpg');
+  background-size: auto 100%;
+  
+}
 
 	ion-card.card {
 		box-shadow: none;
