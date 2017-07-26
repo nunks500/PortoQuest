@@ -13,6 +13,7 @@ import { AuthService } from '../pages/login/auth-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { PeopleServiceProvider } from '../providers/people-service/people-service';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { HttpModule } from '@angular/http';
     Geolocation,
     AuthService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PeopleServiceProvider
   ]
 })
 export class AppModule {}
