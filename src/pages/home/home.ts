@@ -17,8 +17,8 @@ export class HomePage {
         this.posts = data;
         console.log(this.posts);
         console.log(data);
-        this.posts.nome = data[0].nome;
-        this.html = data[0].nome;
+       // this.posts.nome = data.nome;
+       // this.html = data.nome;
 
   });
 

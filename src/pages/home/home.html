@@ -3,13 +3,11 @@
     <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
-<body ng-app="app">
-<ion-content class="card-background-page">
+<ion-content class="has-header card-background-page">
   <ion-card *ngFor="let post of posts">
-    <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/card-saopaolo.png"/>
+    <img [src]="post.image"/>
     <div class="card-title" [innerHTML]="post.nome"></div>
     <div class="card-subtitle" [innerHTML]="post.description"></div>
   </ion-card>
 
 </ion-content>
-</body>
