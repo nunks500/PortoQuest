@@ -146,24 +146,23 @@ for(temp = 0;temp < items.length;temp++){
         title: 'Porras'
         });
 
-       var counter2 = 0;
+        var counter3 = 0;
 
-    for(counter2 = 0;counter2 < items.length; counter2++){
+    for(counter3 = 0;counter3 < items.length; counter3++){
+    //    console.log("gello" + items[temp].lat);
+      if(items[temp].lat == data2[counter3].lat && items[temp].lng == data2[counter3].lng){
 
-      if(items[temp].lat == data2[counter2].lat && items[temp].lng == data2[counter2].lng){
      google.maps.event.addListener(marker, 'click', (function (marker, temp) {
-       var image = data2[counter2].image;
-      var description = data2[counter2].description;
-      var obj = data2[counter2].obj;
+      var image = data2[counter3].image;
+      var description = data2[counter3].description;
+      var obj = data2[counter3].obj;
                 return function () {
                     infowindow.setContent('<div style="float:left;padding: 10px;"><img src='+ image + '>' + '</div>'+ '<strong>' + description+ '</strong><div style="weight: bold; float:left;"></div>'+ '<p></p><div>'+obj+'</div>');
                     infowindow.open(this.map, marker);
                 }
-            })(marker, temp));   
-
+            })(marker, temp));  
+            }  
 }
-             }
-
   }
 
   this.http.post('https://porto-quest.herokuapp.com/api/getnotobjbyid',body).map(res3 => res3.json()).subscribe(data3 => {
@@ -184,7 +183,7 @@ for(temp = 0;temp < items.length;temp++){
     var counter2 = 0;
 
     for(counter2 = 0;counter2 < ar.length; counter2++){
-      if(data3[temp3].lat == data4[counter2].lat && data3[temp3].lng == data4[counter2].lng){
+      if(ar[temp3].lat == data4[counter2].lat && ar[temp3].lng == data4[counter2].lng){
      google.maps.event.addListener(marker, 'click', (function (marker, temp3) {
       var image = data4[counter2].image;
       var description = data4[counter2].description;
