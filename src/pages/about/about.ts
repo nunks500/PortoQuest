@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AuthService } from '../login/auth-service';
 import { Http } from '@angular/http';
+import { Vibration } from '@ionic-native/vibration';
 import 'rxjs/add/operator/map';
 
 
@@ -18,7 +19,7 @@ export class AboutPage {
  //  posts: any;
    map: any;
    items: any;
-  constructor(public navCtrl: NavController, public geolocation: Geolocation, private auth: AuthService, public http: Http, private alertCtrl: AlertController) {
+  constructor(private vibration: Vibration, public navCtrl: NavController, public geolocation: Geolocation, private auth: AuthService, public http: Http, private alertCtrl: AlertController) {
     this.geolocation.getCurrentPosition().then((position) => {
     console.log(position.coords.latitude + " " + position.coords.longitude);
     });
@@ -77,19 +78,19 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
     var temp = this.auth.getuserid();
     const body = {id: temp};
 
-
-    this.http.post('https://porto-quest.herokuapp.com/api/getnotobjbyids',body).map(res => res.json()).subscribe(data => {
+/*
+    this.http.post('https://porto-quest.herokuapp.com/api/getnotobjbyids',body).map(res5 => res5.json()).subscribe(data5 => {
 
   var counter = 0; 
-  var done = data;
-        for(counter = 0;counter < data.length; counter++){
-            var distance = this.getDistanceFromLatLonInKm(data[counter].lat,data[counter].lng,position.coords.latitude,position.coords.longitude);
+
+        for(counter = 0;counter < data5.length; counter++){
+            var distance = this.getDistanceFromLatLonInKm(data5[counter].lat,data5[counter].lng,41.1406379,-8.6152861);
             console.log("km: " + distance);
-            var strings = 'You just visited ' + done[counter].nome + ' and won ' + done[counter].coins + ' coins';
        //     distance = 0.05;
              if(distance <= 0.1)
             {
-                const body2 = {userid: temp,objid: data[counter].id};
+                var strings = 'You just visited ' + data5[counter].nome + ' and won ' + data5[counter].coins + ' coins';
+                const body2 = {userid: temp,objid: data5[counter].id};
                  this.http.post('https://porto-quest.herokuapp.com/api/insertobjcom',body2).map(res2 => res2.json()).subscribe(data2 => {
                        let alert = this.alertCtrl.create({
                       title: 'Congratulations',
@@ -110,10 +111,8 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
       
    });
 
+*/
 
-
-
-        });
 /*      let directionsService = new google.maps.DirectionsService;
         let directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
@@ -121,6 +120,39 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
 
       directionsDisplay.setMap(this.map);*/
     //  var items = [{lat: 41.1456715, lng: -8.616795}, {lat: 41.152277, lng: -8.6114877}, {lat: 41.174247, lng: -8.6057957}];
+//var temp = this.auth.getuserid();
+  //  const body = {id: temp};
+
+
+
+
+    this.http.post('https://porto-quest.herokuapp.com/api/getnotobjbyids',body).map(res5 => res5.json()).subscribe(data5 => {
+       var counter = 0; 
+
+        for(counter = 0;counter < data5.length; counter++){
+            var distance = this.getDistanceFromLatLonInKm(data5[counter].lat,data5[counter].lng,position.coords.latitude,position.coords.longitude);
+            console.log("km: " + distance);
+       //     distance = 0.05;
+             if(distance <= 0.1)
+            {
+                var strings = 'You just visited ' + data5[counter].nome + ' and won ' + data5[counter].coins + ' coins';
+                const body2 = {userid: temp,objid: data5[counter].id};
+                 this.http.post('https://porto-quest.herokuapp.com/api/insertobjcom',body2).map(res2 => res2.json()).subscribe(data2 => {
+                  this.vibration.vibrate(1000);
+                       let alert = this.alertCtrl.create({
+                      title: 'Congratulations',
+                      subTitle: strings,
+                       buttons: ['OK']
+                      });
+                      alert.present(prompt);
+                      this.navCtrl.setRoot(this.navCtrl.getActive().component);
+
+                    });
+              
+            }
+
+
+        }
 
      var ty = this.auth.getuserid();
     const body = {id: ty};
@@ -137,7 +169,7 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
 var img = 'http://i.stack.imgur.com/g672i.png';
 var infowindow = new google.maps.InfoWindow( );
 for(temp = 0;temp < items.length;temp++){
-    console.log(data2[temp]);
+  //  console.log(data2[temp]);
     
     var marker = new google.maps.Marker({
         icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
@@ -207,7 +239,8 @@ for(temp = 0;temp < items.length;temp++){
  });
 
   });
-    
+       });
+    });
        });
 /*
     var temp2;

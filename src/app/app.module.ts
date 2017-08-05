@@ -15,6 +15,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PeopleServiceProvider } from '../providers/people-service/people-service';
 import { HttpModule } from '@angular/http';
+import { Vibration } from '@ionic-native/vibration';
+import { Facebook } from '@ionic-native/facebook';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { HttpModule } from '@angular/http';
     SplashScreen,
     Geolocation,
     AuthService,
+    Vibration,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PeopleServiceProvider
   ]

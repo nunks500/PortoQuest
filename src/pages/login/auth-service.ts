@@ -4,6 +4,7 @@ import 'rxjs/add/observable/throw';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook'
 
 /*
 export class User {
@@ -20,7 +21,7 @@ export class User {
 export class AuthService {
       userid: number;  
 //  currentUser: User;
-constructor(public http: Http) { }
+constructor(public http: Http, private facebook: Facebook) { }
   
 
   public login(credentials) {
@@ -99,13 +100,32 @@ return new Promise((resolve, reject) => {
 public getuserid() {
     return this.userid;
   }
+
+  public setuserid(id) {
+    this.userid = id;
+  }
  
 
-  public loginfacebook(){
+  /*public log():void {
+ console.log('Your message here');
+      console.log("entrei merda");
+      /*
+      this.facebook.login(['email','public_profile']).then((response: FacebookLoginResponse)=>{
+
+        this.facebook.api('me?fields=id,name,first_name,picture.width(720).height(720).as(picture_large)',[]).then(profile =>{
+
+          console.log(profile);
+        }
 
 
-    
+
+          )
+
+      }
+        )
+        
+      }
+
+    */
+
   }
-
-
-}
