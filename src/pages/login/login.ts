@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, Loading, AlertController} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { AuthService } from '../login/auth-service';
+import { RegisterPage } from '../login/register';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/catch';
@@ -15,9 +16,11 @@ export class LoginPage {
 
 	loading: Loading;
   registerCredentials = { user: '', password: '' };
+  FB_APP_ID: number = 340733743018913;
  
 
   constructor(public navCtrl: NavController, private auth: AuthService, private loadingCtrl: LoadingController,  private alertCtrl: AlertController,private facebook: Facebook, public http: Http) {
+
 
   }
 
@@ -37,7 +40,7 @@ export class LoginPage {
 
   public loginfacebook() {
      this.facebook.login(['email','public_profile']).then((response: FacebookLoginResponse)=>{
-
+    
         this.facebook.api('me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)',[]).then(profile =>{
 
             
@@ -68,8 +71,20 @@ export class LoginPage {
           )
 
       }
+
         )
-        
+      
+      }
+
+     public register(){
+      //this.showError("Going");
+          this.navCtrl.setRoot(RegisterPage);
+      }
+
+      public credits(){
+        this.showError2('Photo by Derrick Brutel <br> License: https://creativecommons.org/licenses/by-sa/2.0/ ','Credits')
+
+
       }
 
 
@@ -79,6 +94,16 @@ export class LoginPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+  }
+
+   showError2(text,text2) {
+    let alert = this.alertCtrl.create({
+      title: text2,
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present(prompt);
+
   }
  
     showError(text) {

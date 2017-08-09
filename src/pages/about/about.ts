@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController,Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AuthService } from '../login/auth-service';
 import { Http } from '@angular/http';
@@ -19,10 +19,16 @@ export class AboutPage {
  //  posts: any;
    map: any;
    items: any;
-  constructor(private vibration: Vibration, public navCtrl: NavController, public geolocation: Geolocation, private auth: AuthService, public http: Http, private alertCtrl: AlertController) {
-    this.geolocation.getCurrentPosition().then((position) => {
-    console.log(position.coords.latitude + " " + position.coords.longitude);
-    });
+  constructor(private vibration: Vibration,public platform: Platform, public navCtrl: NavController, public geolocation: Geolocation, private auth: AuthService, public http: Http, private alertCtrl: AlertController) {
+
+let lang = new google.maps.LatLng(41.1624937,-8.6304765);
+      let mapOptions = {
+          center: lang,
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+
+      };
+
     
   }
 
@@ -51,10 +57,6 @@ export class AboutPage {
 
 
   initMap(){
-         this.geolocation.getCurrentPosition().then((position) => {
-         
-let lin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
 let lang = new google.maps.LatLng(41.1624937,-8.6304765);
   		let mapOptions = {
   				center: lang,
@@ -63,8 +65,14 @@ let lang = new google.maps.LatLng(41.1624937,-8.6304765);
 
   		};
 
+
   		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
+this.platform.ready().then(() => {
+         this.geolocation.getCurrentPosition().then((position) => {
+
+          let lin = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          
         var cityCircle = new google.maps.Circle({
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
@@ -227,6 +235,7 @@ for(temp = 0;temp < items.length;temp++){
             })(marker, temp3)); 
             }   
 
+
    }
 
   }
@@ -242,6 +251,7 @@ for(temp = 0;temp < items.length;temp++){
        });
     });
        });
+});
 /*
     var temp2;
     temp2 = this.getitems();
@@ -281,6 +291,7 @@ for (var i = 0; i < temp2.length; i++) {
       console.log(err);
     });*/
   }
+
   
 
 

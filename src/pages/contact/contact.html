@@ -5,21 +5,29 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content>  
+<ion-content class="login-background"> 
+ <ion-refresher (ionRefresh)="refresca($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh">
+    </ion-refresher-content></ion-refresher>
   <ion-item>
         <ion-avatar>
-          <img [src]="profilePicture">
+          <img id="img" [src]="profilePicture">
         </ion-avatar>
       </ion-item>
-
       <ion-card>
-  <ion-card-header>
-    Header
+  <ion-card-header [innerHTML]="html">
   </ion-card-header>
   <ion-card-content>
-    The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+    <canvas #doughnutCanvas></canvas>
   </ion-card-content>
 </ion-card>
 
+    <ion-fab *ngIf="fp" left bottom>
+    <button ion-fab color="red"><ion-icon name="share"></ion-icon></button>
+    <ion-fab-list side="right">
+      <button ion-fab (click)="sharefacebook()"><ion-icon name="logo-facebook"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

@@ -1,3 +1,44 @@
 page-contact {
 
+.refresher-pulling-text,
+.refresher-refreshing-text {
+  color: white;
+}
+
+.refresher-pulling-icon,
+.refresher-refreshing-icon {
+    color:white;
+}
+
+	.item-md{
+  background-color: transparent !important;
+}	
+	#img{
+    margin: auto;
+    width: 30%;
+    height: 30%;
+}
+	.login-background {
+  background: url('../assets/derrick_brutel_porto.jpg');
+  background-size: auto 100%;
+  
+}
+
+.ios, .md {
+ 
+    page-home {
+ 
+        .scroll-content {
+            background-color: map-get($colors, light);
+        }
+ 
+        ion-card-header {
+            font-weight: bold;
+        }
+ 
+    }
+ 
+}
+
+
 }

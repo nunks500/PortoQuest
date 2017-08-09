@@ -9,14 +9,14 @@ import { HomePage } from '../pages/home/home';
 import { Geolocation } from '@ionic-native/geolocation';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/login/register';
 import { AuthService } from '../pages/login/auth-service';
-
+import { HttpModule } from '@angular/http';
+import { Facebook } from '@ionic-native/facebook';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { PeopleServiceProvider } from '../providers/people-service/people-service';
-import { HttpModule } from '@angular/http';
 import { Vibration } from '@ionic-native/vibration';
-import { Facebook } from '@ionic-native/facebook';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,9 @@ import { Facebook } from '@ionic-native/facebook';
     AboutPage,
     ContactPage,
     HomePage,
+    LoginPage,
     TabsPage,
-    LoginPage
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -39,17 +40,18 @@ import { Facebook } from '@ionic-native/facebook';
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Geolocation,
-    AuthService,
     Vibration,
     Facebook,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PeopleServiceProvider
+    SocialSharing,
+    AuthService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}
